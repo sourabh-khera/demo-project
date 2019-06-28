@@ -8,6 +8,7 @@ import Profile from './Profile';
 import  alaSQLSpace from 'alasql';
 import decode from 'decode-html';
 import Base64 from 'base-64'
+import FlowChart from './flowchart';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 class ChartsAction extends Component {
@@ -24,7 +25,8 @@ class ChartsAction extends Component {
 	   showbegindata : [],
 	   isLoggedIn: false,
 	   begin_chart: 0,
-	   render: false
+		 render: false,
+		 showFlowChart: false,
         }
     this.Gotoorg=this.Gotoorg.bind(this);
 	this.GotoHelp=this.GotoHelp.bind(this);
@@ -187,9 +189,10 @@ this.setState({
 showbegindata : this.displayBeginData
 });		
 }
-  
+  handleOverViewClick = () => {
+     this.setState({showFlowChart: !this.state.showFlowChart});
+	}
     render() {
-	console.log(this.state.ObjCards);	
 	let safeguard= localStorage.getItem("safeguard");
     let safeguarddata=JSON.parse(safeguard);
 	let cards=safeguarddata.cards;
@@ -236,22 +239,33 @@ if (localStorage.getItem('session')) {
           <li className="admin" onClick={this.Gotoorg}><a  >c<span className="text">Admin</span></a></li>
         </ul>
       </div>
-      <div id="application">
-        <ul className="book charts">
-        {chartList}
-      </ul>
-
-
-<div className="chart">
-<a className="overview-link">p</a>
-<div className="trail"><ul></ul></div>
-<ul className="book cards" id="action_area">
-{begin_block}
-{this.state.showdata}
-</ul>
-
-</div>
-</div>
+     {
+			 this.state.showFlowChart ? 
+				 <FlowChart 
+					 closeFlowChartView={this.handleOverViewClick} 
+					 charts={charts} cards={cards} 
+					 actions={actions} 
+					 chartid={chartid}
+					 collectionid={collectionid}
+					 objCards={this.state.ObjCards}
+					 title={res_charts[0].title}
+					/>
+			 :
+			 <div id="application">
+			 <ul className="book charts">
+			 {chartList}
+		 </ul>
+			<div className="chart">
+			<a className="overview-link" onClick={this.handleOverViewClick}>p</a>
+			<div className="trail"><ul></ul></div>
+			<ul className="book cards" id="action_area">
+			{begin_block}
+			{this.state.showdata}
+			</ul>
+			</div>
+			</div>
+		 }
+      
 </div>
 );
 } else {

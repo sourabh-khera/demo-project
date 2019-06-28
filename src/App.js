@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import logo from './logo.svg';
 import Home from './Home';
 import Login from './Login';
@@ -40,9 +40,9 @@ import MultiPage from './components/MultiPage';
 import PrintButton from './components/PrintButton';
 import ChartsAction from './ChartsAction';
 import PDFViewer from './components/PDFViewer/PDFViewer';
-import { BrowserRouter as Router, NavLink, Switch, Link, Route ,HashRouter} from 'react-router-dom';
-class App extends Component { 
-constructor(){
+import { BrowserRouter as Router, NavLink, Switch, Link, Route, HashRouter } from 'react-router-dom';
+class App extends Component {
+  constructor() {
     super();
     // Creating Global Variable.
     global.api_url = 'https://aro-crm.com/merpapi/api.php';
@@ -50,49 +50,51 @@ constructor(){
 
   render() {
     return (
-       <Router>
-       <Route exact path="/" component={Login}></Route>
-       <Route   path="/Home" component={Home}></Route>
-       <Route   path="/Collection" component={Collection}></Route>
-	   <Route   path="/help" component={help}></Route>
-	   <Route   path="/Doc" component={Doc}></Route>
-	   <Route   path="/Charts" component={Charts}></Route>
-	   <Route   path="/ChartsAction" component={ChartsAction}></Route>
-	   <Route   path="/Page" component={Page}></Route>
-	   <Route   path="/MultiPage" component={MultiPage}></Route>
-	   <Route   path="/PrintButton" component={PrintButton}></Route>
-       <Route   path="/Login" component={Login}></Route>
-       <Route   path="/Organization" component={Organization}></Route>
-	   <Route   path="/EditProfile" component={EditProfile}></Route>
-	   <Route   path="/compose" component={compose}></Route>
-	   <Route   path="/emergency" component={emergency}></Route>
-	   <Route   path="/shooter" component={shooter}></Route>
-	   <Route   path="/messages" component={messages}></Route>
-       <Route   path="/Addorganization" component={Addorganization}></Route>
-       <Route   path="/Edit" component={Edit}></Route>
-       <Route   path="/groups/Groups" component={Groups}></Route>
-       <Route   path="/AddGroup" component={AddGroup}></Route>
-       <Route   path="/EditGroup" component={EditGroup}></Route>
-       <Route   path="/users/User" component={User}></Route>
-       <Route   path="/AddUser" component={AddUser}></Route>
-       <Route   path="/EditUser" component={EditUser}></Route>
-       <Route   path="/collections/Collections" component={Collections}></Route>
-	   <Route   path="/AddCollections" component={AddCollections}></Route>
-       <Route   path="/EventAids" component={EventAids}></Route>
-	   <Route   path="/AddEventAids" component={AddEventAids}></Route>
-	   <Route   path="/ViewTasks" component={ViewTasks}></Route>
-	   <Route   path="/EditTasks" component={EditTasks}></Route>
-	   <Route   path="/PDFViewer" component={PDFViewer}></Route>
-	   <Route   path="/EditEventAids" component={EditEventAids}></Route>
-	   <Route   path="/SupportingMaterials" component={SupportingMaterials}></Route>
-	   <Route   path="/CollectionSupportingMaterials" component={CollectionSupportingMaterials}></Route>
-	   <Route   path="/EditCollections" component={EditCollections}></Route>
-	   <Route   path="/Variables" component={Variables}></Route>
-	   <Route   path="/Attachment" component={Attachment}></Route>
-	   <Route   path="/AddFileFolder" component={AddFileFolder}></Route>
-	   <Route   path="/AddFile" component={AddFile}></Route>
-       <Route   path="/Profile" component={Profile}></Route>
-       </Router>
+      <Router>
+        <Fragment>
+        <Route exact path="/" component={Login}></Route>
+        <Route path="/Home" component={Home}></Route>
+        <Route path="/Collection" component={Collection}></Route>
+        <Route path="/help" component={help}></Route>
+        <Route path="/Doc" component={Doc}></Route>
+        <Route path="/Charts" component={Charts}></Route>
+        <Route path="/ChartsAction" component={ChartsAction}></Route>
+        <Route path="/Page" component={Page}></Route>
+        <Route path="/MultiPage" component={MultiPage}></Route>
+        <Route path="/PrintButton" component={PrintButton}></Route>
+        <Route path="/Login" component={Login}></Route>
+        <Route path="/Organization" component={Organization}></Route>
+        <Route path="/EditProfile" component={EditProfile}></Route>
+        <Route path="/compose" component={compose}></Route>
+        <Route path="/emergency" component={emergency}></Route>
+        <Route path="/shooter" component={shooter}></Route>
+        <Route path="/messages" component={messages}></Route>
+        <Route path="/Addorganization" component={Addorganization}></Route>
+        <Route path="/Edit" component={Edit}></Route>
+        <Route path="/groups/Groups" component={Groups}></Route>
+        <Route path="/AddGroup" component={AddGroup}></Route>
+        <Route path="/EditGroup" component={EditGroup}></Route>
+        <Route path="/users/User" component={User}></Route>
+        <Route path="/AddUser" component={AddUser}></Route>
+        <Route path="/EditUser" component={EditUser}></Route>
+        <Route path="/collections/Collections" component={Collections}></Route>
+        <Route path="/AddCollections" component={AddCollections}></Route>
+        <Route path="/EventAids" component={EventAids}></Route>
+        <Route path="/AddEventAids" component={AddEventAids}></Route>
+        <Route path="/ViewTasks" component={ViewTasks}></Route>
+        <Route path="/EditTasks" component={EditTasks}></Route>
+        <Route path="/PDFViewer" component={PDFViewer}></Route>
+        <Route path="/EditEventAids" component={EditEventAids}></Route>
+        <Route path="/SupportingMaterials" component={SupportingMaterials}></Route>
+        <Route path="/CollectionSupportingMaterials" component={CollectionSupportingMaterials}></Route>
+        <Route path="/EditCollections" component={EditCollections}></Route>
+        <Route path="/Variables" component={Variables}></Route>
+        <Route path="/Attachment" component={Attachment}></Route>
+        <Route path="/AddFileFolder" component={AddFileFolder}></Route>
+        <Route path="/AddFile" component={AddFile}></Route>
+        <Route path="/Profile" component={Profile}></Route>
+        </Fragment>
+      </Router>
     );
   }
 }
