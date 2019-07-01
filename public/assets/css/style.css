@@ -2972,6 +2972,10 @@ color:#000;
     height: 100%;
     margin-top: 52px;
     display: flex;
+    flex-direction: column;
+}
+.heading-container {
+    display: flex
 }
 .chart-title {
     font-size: 20px;
