@@ -1,6 +1,5 @@
 import React, {Component, Fragment} from 'react';
 import ReactHtmlParser from 'react-html-parser';
-// import alaSQLSpace from 'alasql';
 
 export default class FlowChart extends Component {
   constructor(){
@@ -11,36 +10,32 @@ export default class FlowChart extends Component {
     const { cards, objCards, chartid, actions, charts } = this.props;
     const flowChartCards = cards.filter(item => item.chart_id === chartid);
     this.setState({flowChartCards});
-    console.log(flowChartCards, "cards----");
   }
   render(){
     const {closeFlowChartView, title} = this.props;
-    console.log(title)
+    const { flowChartCards } = this.state;
     return (
       <div className='flow-chart-container'>
       <div className="heading-container">
       <div className='chart-title'>{title}</div>
-       <span className='cross-icon-container'><i className="fas fa-times cross-icon" onClick={closeFlowChartView}></i></span> 
+       <span className='cross-icon-container'><i className="fas fa-times cross-icon" onClick={closeFlowChartView} /></span>
       </div>  
        <div className='overlay-container'>
          <div className='overview-scroller'>
            <div className='overview'>
            <ul className='cards'>
           {
-            this.state.flowChartCards.map((item, idx) =>(<li className='column' key={idx}>
+            flowChartCards.map((item, idx) =>(<li className='column' key={idx}>
               <ul>
-                <li className={item.card_type}>
-                   <style dangerouslySetInnerHTML={{ __html: [ `.${item.card_type}:before {content: ${item.card_type}} `].join('\n') }}></style>
+                <li className={item.card_type} data-type={item.card_type}>
                   <div className='content'>
-                    {ReactHtmlParser("<p><strong>Discoverer notifies:</strong></p>\n\n<p>Principal or Main Office</p>\n\n<p>or</p>\n\n<p>Calls 911</p>\n\n<p>or</p>\n\n<p>Uses emergency pull station</p>\n")}
+                    {ReactHtmlParser(window.atob(item.content))}
                   </div>
                 </li>
-
               </ul>
-              
-              
-              </li>))
-          } 
+              </li>
+            ))
+          }
         </ul>
            </div>
 
