@@ -9,7 +9,14 @@ export default class FlowChart extends Component {
   componentDidMount (){
     const { cards, objCards, chartid, actions, charts } = this.props;
     const flowChartCards = cards.filter(item => item.chart_id === chartid);
-    this.setState({flowChartCards});
+    flowChartCards.map((item, idx) => {
+      let flowChartActions = [];
+      item.actions.map((actionItem, idx) => {
+        flowChartActions.push(actions.filter(item => item.id === actionItem)[0]);
+      });
+      item.actions = flowChartActions;  
+    });
+    this.setState({flowChartCards}, ()=>{console.log(this.state.flowChartCards)});
   }
   render(){
     const {closeFlowChartView, title} = this.props;
