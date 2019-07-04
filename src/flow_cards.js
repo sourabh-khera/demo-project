@@ -16,13 +16,19 @@ export default class FlowCard extends Component {
   componentDidMount() {
     const { cards, chartid, actions, charts } = this.props;
     const flowChartCards = cards.filter(item => item.chart_id === chartid);
-    flowChartCards.map((item, idx) => {
+    let beginIndex;
+    flowChartCards.map((item, idx) => { 
       let flowChartActions = [];
-      item.actions.map((actionItem, idx) => {
+      item.actions.map((actionItem) => {
         flowChartActions.push(actions.filter(item => item.id === actionItem)[0]);
       });
       item.actions = flowChartActions;
+      if(item.card_type === 'begin')
+         beginIndex = idx;
     });
+    const temp = flowChartCards.splice(beginIndex, 1);
+    flowChartCards.splice(0, 0, temp[0]);
+    console.log(flowChartCards)
     this.setState({newFlowCards: [flowChartCards[this.state.activeCardIndex]]}, ()=>{console.log(this.state.newFlowCards)}); 
     this.setState({ flowChartCards });
   }
@@ -30,13 +36,18 @@ export default class FlowCard extends Component {
   componentWillReceiveProps(nextProps) {
     const { cards, chartid, actions, charts } = nextProps;
     const flowChartCards = cards.filter(item => item.chart_id === chartid);
+    let beginIndex;
     flowChartCards.map((item, idx) => {
       let flowChartActions = [];
       item.actions.map((actionItem, idx) => {
         flowChartActions.push(actions.filter(item => item.id === actionItem)[0]);
       });
       item.actions = flowChartActions;
+      if(item.card_type === 'begin')
+         beginIndex = idx;
     });
+    const temp = flowChartCards.splice(beginIndex, 1);
+    flowChartCards.splice(0, 0, temp[0]);
     this.setState({newFlowCards: [flowChartCards[this.state.activeCardIndex]]}, ()=>{console.log(this.state.newFlowCards)}); 
     this.setState({ flowChartCards });
 
@@ -50,7 +61,7 @@ export default class FlowCard extends Component {
       <li className={`${activeCardContent.card_type} activecard`} data-type={activeCardContent.card_type} data-card={activeCardContent.id} data-chart-title={title}>
       {ReactHtmlParser(Base64.decode(activeCardContent.content))}
     <p className="card-content-actions">{
-      activeCardContent.actions[0].content == '' ? 
+     activeCardContent.actions.length && activeCardContent.actions[0].content == '' || 'test'? 
       <button onClick={this.handleNextButton}>Next</button>
       : null
     }</p>
