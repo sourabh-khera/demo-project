@@ -2034,14 +2034,15 @@ color:#000;
     }
 }
 
-.backbutton {
+.backbutton:hover {
     position: absolute;
     top: 1.2em;
     left: 1.2em;
     background: 0 0;
     border: 0;
     outline: 0;
-    cursor: pointer
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .backbutton:before {
