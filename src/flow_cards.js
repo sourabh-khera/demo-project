@@ -11,12 +11,18 @@ export default class FlowCard extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { cards, chartid, actions } = nextProps;
+    const { cards, chartid, actions, activeBreadCrumb } = nextProps;
     if(this.props.chartid !== chartid) {
     this.initialState(cards, chartid, actions);
     this.props.resetBreadcrumb();
     }
+    if(activeBreadCrumb && activeBreadCrumb.length){
+      const index = this.state.flowChartCards.indexOf(activeBreadCrumb[0]);
+      this.setState({activeCardIndex: index});
+    }
   }
+  
+  
 
   initialState = (cards, chartid, actions) => {
     const flowChartCards = cards.filter(item => item.chart_id === chartid);
@@ -36,6 +42,8 @@ export default class FlowCard extends Component {
   };
 
   handleNextButton = actionSelected => {
+    const { resetActiveBreadCrumb } = this.props;
+    resetActiveBreadCrumb();
     const { activeCardIndex, newFlowCards, flowChartCards } = this.state;
     const actionIndex = flowChartCards.findIndex(item => item.id === actionSelected.destination);
     this.setState({newFlowCards: [...newFlowCards, flowChartCards[actionIndex]], activeCardIndex: activeCardIndex + 1});

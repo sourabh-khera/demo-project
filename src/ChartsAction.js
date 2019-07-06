@@ -28,7 +28,8 @@ class ChartsAction extends Component {
 			begin_chart: 0,
 			render: false,
 			showFlowChart: false,
-            breadcrumbs: [],
+			breadcrumbs: [],
+			activeBreadCrumb: [],
 		};
 		this.Gotoorg = this.Gotoorg.bind(this);
 		this.GotoHelp = this.GotoHelp.bind(this);
@@ -184,13 +185,20 @@ class ChartsAction extends Component {
 			showbegindata: this.displayBeginData
 		});
 	}
+
 	handleOverViewClick = () => {
 		this.setState({ showFlowChart: !this.state.showFlowChart });
 	};
 
-	addBreadcrumb = addNew => this.setState({ breadcrumbs: [ ...this.state.breadcrumbs, addNew ] });
+	addBreadcrumb = addNew => this.setState({ breadcrumbs: [...this.state.breadcrumbs, addNew]});
 
-	resetBreadcrumb = addNew => this.setState({ breadcrumbs: [] });
+	resetBreadcrumb = addNew => this.setState({ breadcrumbs: [], activeBreadCrumb: [] });
+
+	resetActiveBreadCrumb = () => this.setState({activeBreadCrumb: []});
+
+	hanldeBreadCrumb = item => {
+		this.setState({breadcrumbs: [...this.state.breadcrumbs, item], activeBreadCrumb: [item]}, ()=>{console.log('---',this.state.activeBreadCrumb)});
+	};
 
 	render() {
 		let safeguard = localStorage.getItem("safeguard");
@@ -253,24 +261,26 @@ class ChartsAction extends Component {
 								<ul className="book charts">
 									{chartList}
 								</ul>
-								<div className="chart">
+								<div className="chart"> 
 									<a className="overview-link" onClick={this.handleOverViewClick}>p</a>
-                                    <div className="trail">
-                                        <ul>
-                                            {this.state.breadcrumbs.map(item => (
-                                                <li className={`breadcrumb ${item.card_type}`} />
-                                            ))}
-                                        </ul>
-                                    </div>
+									<div className="trail">
+										<ul>
+											{this.state.breadcrumbs.map(item => (
+												<li className={`breadcrumb ${item.card_type}`} onClick={() => this.hanldeBreadCrumb(item)} />
+											))}
+										</ul>
+									</div>
 									<ul className="book cards" id="action_area">
-									  <FlowCard 
-											charts={charts} 
+										<FlowCard
+											charts={charts}
 											cards={cards}
 											actions={actions}
 											chartid={chartid}
-								            title={res_charts[0].title}
-                                            addBreadcrumb={this.addBreadcrumb}
-                                            resetBreadcrumb={this.resetBreadcrumb}
+											title={res_charts[0].title}
+											addBreadcrumb={this.addBreadcrumb}
+											resetBreadcrumb={this.resetBreadcrumb}
+											activeBreadCrumb={this.state.activeBreadCrumb}
+											resetActiveBreadCrumb={this.resetActiveBreadCrumb}
 										/>
 									</ul>
 								</div>
