@@ -16,7 +16,7 @@ export default class FlowChart extends Component {
         }
     });
     totalArrows.pop();
-    this.setState({ flowChartCards, totalArrows });
+
     flowChartCards.map((item, idx) => {
       let flowChartActions = [];
       item.actions.map((actionItem, idx) => {
@@ -24,7 +24,7 @@ export default class FlowChart extends Component {
       });
       item.actions = flowChartActions;
     });
-    this.setState({flowChartCards}, ()=>{console.log(this.state.flowChartCards)});
+    this.setState({flowChartCards, totalArrows}, ()=>{console.log(this.state.flowChartCards)});
   }
 
   componentDidUpdate() {

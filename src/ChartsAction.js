@@ -28,7 +28,8 @@ class ChartsAction extends Component {
 			begin_chart: 0,
 			render: false,
 			showFlowChart: false,
-		}
+            breadcrumbs: [],
+		};
 		this.Gotoorg = this.Gotoorg.bind(this);
 		this.GotoHelp = this.GotoHelp.bind(this);
 		this.GotoHome = this.GotoHome.bind(this);
@@ -185,7 +186,11 @@ class ChartsAction extends Component {
 	}
 	handleOverViewClick = () => {
 		this.setState({ showFlowChart: !this.state.showFlowChart });
-	}
+	};
+
+	addBreadcrumb = addNew => this.setState({ breadcrumbs: [ ...this.state.breadcrumbs, addNew ] });
+
+	resetBreadcrumb = addNew => this.setState({ breadcrumbs: [] });
 
 	render() {
 		let safeguard = localStorage.getItem("safeguard");
@@ -249,16 +254,23 @@ class ChartsAction extends Component {
 									{chartList}
 								</ul>
 								<div className="chart">
-								  <a className="backbutton" ></a>
 									<a className="overview-link" onClick={this.handleOverViewClick}>p</a>
-									<div className="trail"><ul></ul></div>
+                                    <div className="trail">
+                                        <ul>
+                                            {this.state.breadcrumbs.map(item => (
+                                                <li className={`breadcrumb ${item.card_type}`} />
+                                            ))}
+                                        </ul>
+                                    </div>
 									<ul className="book cards" id="action_area">
 									  <FlowCard 
 											charts={charts} 
 											cards={cards}
 											actions={actions}
 											chartid={chartid}
-								      title={res_charts[0].title}
+								            title={res_charts[0].title}
+                                            addBreadcrumb={this.addBreadcrumb}
+                                            resetBreadcrumb={this.resetBreadcrumb}
 										/>
 									</ul>
 								</div>

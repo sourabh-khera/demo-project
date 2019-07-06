@@ -2017,7 +2017,7 @@ body {
 .breadcrumb {
     display: inline-block;
     width: .9em;
-    height: .9em;
+    height: .9em !important;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
     -o-border-radius: 50%;
